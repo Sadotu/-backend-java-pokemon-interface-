@@ -272,4 +272,5 @@ public class PokemonGymImpl implements PokemonGym {
         }
     }
 
+    // aanpassing voor pull request
 }
