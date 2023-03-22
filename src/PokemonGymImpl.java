@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.*;
 
 // Los in deze klasse alle foutmeldingen op door (abstracte) klassen met variabelen en methodes te maken en een interface met methodes (en soms een import).
 public class PokemonGymImpl implements PokemonGym {
@@ -21,8 +21,14 @@ public class PokemonGymImpl implements PokemonGym {
 
         Pokemon gymPokemon = chooseGymPokemon(gymOwner);
         System.out.println(Main.ANSI_RED + gymOwner.getName() + Main.ANSI_RESET +": I'll choose you, " + gymPokemon.getName());
+        System.out.println(gymPokemon.getSound());
+        System.out.println("Level: " + gymPokemon.getLevel());
+        System.out.println("HP: " + gymPokemon.getHp());
         Pokemon pokemon = choosePokemon(player1);
         System.out.println(Main.ANSI_GREEN + player1.getName() + Main.ANSI_RESET + ": I'll choose you, " + pokemon.getName());
+        System.out.println(pokemon.getSound());
+        System.out.println("Level: " + pokemon.getLevel());
+        System.out.println("HP: " + pokemon.getHp());
 
         fightRound(player1, gymOwner, pokemon, gymPokemon);
 
@@ -190,6 +196,7 @@ public class PokemonGymImpl implements PokemonGym {
                 }
             }
         }
+        System.out.println("");
     }
 
     @Override
@@ -247,13 +254,17 @@ public class PokemonGymImpl implements PokemonGym {
     public void attackOrChange(Pokemon pokemon, Pokemon gymPokemon, PokemonTrainer trainer, PokemonGymOwner gym){
         Scanner speler_A = new Scanner(System.in);
 
-        System.out.println("Do you want to attack or change your pokemon?");
-        System.out.println("Type a for attack or c for change");
+        System.out.println("Do you want to attack, heal or change your pokemon?");
+        System.out.println("Type a for attack, h for heal or c for change");
         String choice = speler_A.nextLine();
 
         if (choice.equalsIgnoreCase("a")) {
             String attack = chooseAttackPlayer(pokemon);
             performAttackPlayer(pokemon, gymPokemon, attack);
+        }
+        else if (choice.equalsIgnoreCase("h")) {
+            System.out.println(pokemon.getName() + "is given " + pokemon.getFood() + ". " + pokemon.getName() + "Heals 20 HP!");
+            pokemon.setHp(pokemon.getHp() + 20);
         } else {
             pokemon = choosePokemon(trainer);
             attackOrChange(pokemon, gymPokemon, trainer, gym);
